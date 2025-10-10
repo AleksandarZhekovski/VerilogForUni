@@ -1,4 +1,4 @@
-// 1: AND
+// 1: AND (only if both)
 module and_gate (
     input and_a,
     input and_b,
@@ -9,7 +9,7 @@ module and_gate (
   assign and_out = and_a && and_b;
 endmodule
 
-// 2: OR
+// 2: OR (if either)
 module or_gate (
     input or_a,
     input or_b,
@@ -20,7 +20,7 @@ module or_gate (
   assign or_out = or_a || or_b;
 endmodule
 
-// 3: NOT
+// 3: NOT (inverts the input
 module not_gate (
     input not_a,
 
@@ -30,7 +30,7 @@ module not_gate (
   assign not_out = !not_a;
 endmodule
 
-// 4: NAND
+// 4: NAND (if both then off, on otherwise)
 module nand_gate (
     input nand_a,
     input nand_b,
@@ -41,7 +41,7 @@ module nand_gate (
   assign nand_out = !(nand_a && nand_b);
 endmodule
 
-// 5: NOR
+// 5: NOR (only if both off)
 module nor_gate (
     input nor_a,
     input nor_b,
@@ -52,7 +52,7 @@ module nor_gate (
   assign nor_out = !(nor_a || nor_b);
 endmodule
 
-// 6: XOR
+// 6: XOR (either one, but not both)
 module xor_gate (
     input xor_a,
     input xor_b,
@@ -63,7 +63,7 @@ module xor_gate (
   assign xor_out = (xor_a || xor_b) && !(xor_a && xor_b);
 endmodule
 
-// 7: XNOR
+// 7: XNOR (either both on, or both off)
 module xnor_gate (
     input xnor_a,
     input xnor_b,
@@ -74,7 +74,7 @@ module xnor_gate (
   assign xnor_out = !((xnor_a || xnor_b) && !(xnor_a && xnor_b));
 endmodule
 
-// 8: BUFFER
+// 8: BUFFER (returns the inputs)
 module buff_gate (
     input buff_a,
 
