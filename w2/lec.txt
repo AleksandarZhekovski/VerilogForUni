@@ -1,1 +1,8 @@
 syncronus vs asyncronus
+sequental logic
+
+logical vs bitwise operators
+
+half-adder
+full-adder
+  -
