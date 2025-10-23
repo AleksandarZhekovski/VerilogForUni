@@ -1,30 +1,84 @@
-  //a;sldjfk;asfdj
-module 4b_counter(
-  input dream,
-  input notdream
+module counter_bit(
+  input clock,
+  input reset,
+  input adder_a,
+
+  input  counter_bit_carry_in,
+  output counter_bit_carry_out,
+  
+  output reg ff_out
   );
 
-  // //
-  // wire 1_adder_to_1_ff;
-  // wire 1_ff_to_1_adder;
-  // wire 1_adder_to_2_adder;
   //
-  // full_adder 1st_fa(
-  //   .full_adder_a(1'b1),
-  //   .full_adder_b(1_ff_to_1_adder),
-  //   .full_adder_carry_in(1'b0),
-  //
-  //   .full_adder_sum(1_adder_to_1_ff),
-  //   .full_adder_carry_out(1_adder_to_2_adder)
-  //   );
-  //
-  // d_ff 1st_d_ff(
-  //   .clk(clock),
-  //   .res(reset),
-  //   .data_in(1_adder_to_1_ff),
-  //   .data_out(1_ff_to_1_adder)
-  //   );
-  //
+  wire adder_to_ff;
+  wire ff_to_adder;
+
+  full_adder full_adder(
+    .full_adder_a(adder_a),
+    .full_adder_b(ff_to_adder),
+    .full_adder_carry_in(counter_bit_carry_in),
+
+    .full_adder_sum(adder_to_ff),
+    .full_adder_carry_out(counter_bit_carry_out)
+    );
+
+  d_flipflop d_ff(
+    .clock(clock),
+    .reset(reset),
+
+    .data_in(adder_to_ff),
+    .data_out(ff_to_adder)
+    );
+
+  assign ff_out = ff_to_adder;
+endmodule
+
+
+module counter(
+  input clock,
+  input reset,
+
+  output bit_1,
+  output bit_2,
+  output bit_3,
+  output bit_4
+);
+  wire to_second_cb;
+  counter_bit first_cb(
+    .clock(clock),
+    .reset(reset),
+
+    .adder_a(1'b1),
+    .counter_bit_carry_in(1'b0),
+    .counter_bit_carry_out(to_second_cb),
+    .ff_out(bit_1)
+  );
+  
+
+  wire to_third_cb;
+  counter_bit second_cb(
+    .clock(clock),
+    .reset(reset),
+
+    .adder_a(1'b0),
+    .counter_bit_carry_in(to_second_cb),
+    .counter_bit_carry_out(to_third_cb),
+    .ff_out(bit_2)
+  );
+
+  wire to_forth_cb;
+  counter_bit third_cb(
+    .clock(clock),
+    .reset(reset),
+
+    .adder_a(1'b0),
+    .counter_bit_carry_in(to_third_cb),
+    .counter_bit_carry_out(to_forth_cb),
+    .ff_out(bit_3)
+  );
+
+endmodule
+
   // //
   // wire 2_adder_to_2_ff;
   // wire 2_ff_to_2_adder;
@@ -88,5 +142,5 @@ module 4b_counter(
   //
   //   .data_out(4_ff_to_4_adder)
   //   );
-  //
-endmodule
+
+// endmodule
