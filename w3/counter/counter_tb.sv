@@ -15,16 +15,6 @@ module testbench();
     .bit_4(bit_4)
     );
 
-  reg data_in;
-
-  wire data_out;
-
-  d_flipflop u_d_flip_flop(
-    .clock(clk),
-    .reset(res),
-    .data_in(data_in),
-    .data_out(data_out)
-    );
   always #5 clk = ~clk;
   always #2 data_in = ~data_in;
 
