@@ -3,7 +3,11 @@ module testbench();
   reg clk;
   reg res; 
 
-  wire [3:0]x_bit;
+  wire bit_1;
+  wire bit_2;
+  wire bit_3;
+  wire bit_4;
+  wire bit_5;
 
   counter my_counter(
     .clock(clk),
@@ -12,11 +16,22 @@ module testbench();
     .bit_1(bit_1),
     .bit_2(bit_2),
     .bit_3(bit_3),
-    .bit_4(bit_4)
+    .bit_4(bit_4),
+    .bit_5(bit_5)
     );
 
   always #5 clk = ~clk;
-  always #2 data_in = ~data_in;
+
+  always @(*) 
+  begin
+    if (bit_1 && bit_2 && bit_4 && bit_5)
+      res = 1'b1;
+      #10
+      res = 1'b0;
+  end
+
+    
+  // always #2 data_in = ~data_in;
 
   initial begin 
     $dumpfile("dump.vcd");
@@ -25,12 +40,12 @@ module testbench();
     res = 1'b1;
     clk = 1'b0;
 
-    data_in = 1'b1;
+    // data_in = 1'b1;
     #15
     res = 1'b0;
 
 
-    #50
+    #400
     $finish();
 
   end

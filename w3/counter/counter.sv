@@ -41,42 +41,63 @@ module counter(
   output bit_1,
   output bit_2,
   output bit_3,
-  output bit_4
+  output bit_4,
+  output bit_5
 );
-  wire to_second_cb;
+  wire to_cb_2;
   counter_bit first_cb(
     .clock(clock),
     .reset(reset),
 
     .adder_a(1'b1),
     .counter_bit_carry_in(1'b0),
-    .counter_bit_carry_out(to_second_cb),
+    .counter_bit_carry_out(to_cb_2),
     .ff_out(bit_1)
   );
   
 
-  wire to_third_cb;
+  wire to_cb_3;
   counter_bit second_cb(
     .clock(clock),
     .reset(reset),
 
     .adder_a(1'b0),
-    .counter_bit_carry_in(to_second_cb),
-    .counter_bit_carry_out(to_third_cb),
+    .counter_bit_carry_in(to_cb_2),
+    .counter_bit_carry_out(to_cb_3),
     .ff_out(bit_2)
   );
 
-  wire to_forth_cb;
+  wire to_cb_4;
   counter_bit third_cb(
     .clock(clock),
     .reset(reset),
 
     .adder_a(1'b0),
-    .counter_bit_carry_in(to_third_cb),
-    .counter_bit_carry_out(to_forth_cb),
+    .counter_bit_carry_in(to_cb_3),
+    .counter_bit_carry_out(to_cb_4),
     .ff_out(bit_3)
+    );
+
+  wire to_cb_5;
+  counter_bit forth_cb(
+    .clock(clock),
+    .reset(reset),
+
+    .adder_a(1'b0),
+    .counter_bit_carry_in(to_cb_4),
+    .counter_bit_carry_out(to_cb_5),
+    .ff_out(bit_4)
   );
 
+  counter_bit fifth_cb(
+    .clock(clock),
+    .reset(reset),
+
+    .adder_a(1'b0),
+    .counter_bit_carry_in(to_cb_5),
+    .counter_bit_carry_out(),
+    .ff_out(bit_5)
+  );
 endmodule
 
   // //
