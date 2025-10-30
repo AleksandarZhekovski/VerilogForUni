@@ -1,4 +1,3 @@
-// `include "8_gates.sv"
 module full_adder #(parameter WIDTH = 1) (
   input [WIDTH-1:0] full_adder_a,
   input [WIDTH-1:0] full_adder_b,

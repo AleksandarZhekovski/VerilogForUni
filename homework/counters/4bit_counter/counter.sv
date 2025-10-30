@@ -41,9 +41,7 @@ module counter(
   output bit_1,
   output bit_2,
   output bit_3,
-  output bit_4,
-  output bit_5,
-  output bit_6
+  output bit_4
 );
   wire to_cb_2;
   counter_bit first_cb(
@@ -79,7 +77,7 @@ module counter(
     .ff_out(bit_3)
     );
 
-  wire to_cb_5;
+  // wire to_cb_5;
   counter_bit forth_cb(
     .clock(clock),
     .reset(reset),
@@ -90,26 +88,6 @@ module counter(
     .ff_out(bit_4)
   );
 
-  wire to_cb_6;
-  counter_bit fifth_cb(
-    .clock(clock),
-    .reset(reset),
-
-    .adder_a(1'b0),
-    .counter_bit_carry_in(to_cb_5),
-    .counter_bit_carry_out(to_cb_6),
-    .ff_out(bit_5)
-  );
-
-  counter_bit sixth_cb(
-    .clock(clock),
-    .reset(reset),
-
-    .adder_a(1'b0),
-    .counter_bit_carry_in(to_cb_6),
-    .counter_bit_carry_out(),
-    .ff_out(bit_6)
-  );
 endmodule
 
   // //

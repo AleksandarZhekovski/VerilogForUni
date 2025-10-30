@@ -31,15 +31,33 @@ parameter WIDTH = 8
     address = 4'b0000;
     writeData = 8'b00000001;
 
-    #5
+    #5 // pos clk: Should write 00000011
     writeEnable = 1'b1;
     writeData = 8'b00000011;
 
-    #5
+    #5 // neg clk:
 
     writeEnable = 1'b0;
 
-    #10
+    #5 // pos clk: input data changes, but writeEnable is still off
+
+    writeData = 8'b00000111;
+
+    #5 // neg clk: no changes
+
+    writeData = 8'b00001111;
+
+    #5 // pos clk: now writeEnable is on so it should write it
+
+    writeEnable = 1'b1;
+
+    #5 // neg clk: close writeEnable
+
+    writeEnable = 1'b0;
+
+    #5 // pos clk: now readData should change to 00001111
+
+    #5 // neg clk: no changes
 
     $finish();
 

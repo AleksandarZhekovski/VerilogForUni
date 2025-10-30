@@ -11,24 +11,22 @@ module sync_mem #(
     );
 
   reg [WIDTH-1 : 0] memory [0 : 2**DEPTH -1];
-  reg internalWriteEnable;
-
-  always @(posedge clock) begin
-    internalWriteEnable = writeEnable;
-  end
 
 
   always @(posedge clock) begin 
     if (writeEnable) begin
-      assign internalWriteEnable = 1'b0;
       memory[address] <= writeData;
     end
-  end
 
-  always @(posedge clock) begin
     if (!writeEnable) begin
       readData <= memory[address];
     end
   end
+
+  // always @(posedge clock) begin
+  //   if (!writeEnable) begin
+  //     readData <= memory[address];
+  //   end
+  // end
 
   endmodule
