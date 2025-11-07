@@ -10,12 +10,23 @@ module instruction_counter #(
   // ,output reg [COUNTBITS-1 : 0] test_res_reg
   );
     reg  [ICODESIZE-1 : 0] icode_reg;
+    always @(posedge clock or negedge reset) begin
+      if (reset) begin
+        icode_reg <= icode_input;
+        // For testing
+        // test_res_reg = readData0 + 1;
+      end
 
-    reg [COUNTBITS-1 : 0] readData0;
-    reg [COUNTBITS-1 : 0] readData1;
+      if (!reset) begin
+        icode_reg = 4'b0000;
+      end
+    end 
 
-    // reg writeEnable0;
-    // reg writeEnable1;
+    wire [COUNTBITS-1 : 0] readData0;
+    wire [COUNTBITS-1 : 0] readData1;
+
+    wire writeEnable0;
+    wire writeEnable1;
 
     sync_mem my_mem (
 
@@ -32,11 +43,24 @@ module instruction_counter #(
       .readData1   ()
       );
 
+    reg [COUNTBITS-1 : 0] mount_reg; 
+    always @(posedge clock or negedge reset) begin
+      if (reset) begin
+        mount_reg <= readData0;
+        // For testing
+        // test_res_reg = readData0 + 1;
+      end
+
+      if (!reset) begin
+        resault_reg = 4'b0000;
+      end
+    end 
+
 
     reg [COUNTBITS-1 : 0] resault_reg;
     always @(posedge clock or negedge reset) begin
       if (reset) begin
-        resault_reg <= readData0 + 1;
+        resault_reg <= mount_reg + 1;
         // For testing
         // test_res_reg = readData0 + 1;
       end

@@ -3,6 +3,7 @@ module sync_mem #(
   parameter WIDTH = 4
   ) (
     input               clock,
+    input reset,
 
     // Port 1
     input                    writeEnable0,
@@ -21,8 +22,10 @@ module sync_mem #(
 
   reg [WIDTH-1 : 0] memory [0 : 2**DEPTH -1];
 
-
   always @(posedge clock) begin 
+    if (!reset);
+
+
     // PORT 0
     if (writeEnable0) begin
       memory[address0] <= writeData0;

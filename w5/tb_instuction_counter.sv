@@ -31,26 +31,35 @@ module testbench();
 
   initial begin 
     $dumpfile("dump.vcd");
-    $dumpvars(1);
-
+    $dumpvars(0);
     res = 1'b0;
     clk = 1'b0;
 
     #15
     res = 1'b1;
-
     #5
+
     my_icode = 4'b0001;
     #5
 
-    #5
     my_icode = 4'b0011;
     #5
 
-    #5
     my_icode = 4'b0010;
     #5
+
+    #15
+
+    my_icode = 4'b0011;
+    #5
+
+    #15
+
+    my_icode = 4'b0011;
+    #5
     #400
+
+    
     $finish();
 
   end
